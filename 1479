@@ -1,0 +1,15 @@
+SELECT  item_category CATEGORY,
+        SUM(CASE WHEN week_day='Monday' THEN  quantity ELSE 0 END) AS MONDAY,
+        SUM(CASE WHEN week_day='Tuesday' THEN  quantity ELSE 0 END) AS TUESDAY,
+        SUM(CASE WHEN week_day='Wednesday' THEN  quantity ELSE 0 END) AS WEDNESDAY,
+        SUM(CASE WHEN week_day='Thursday' THEN  quantity ELSE 0 END) AS THURSDAY,
+        SUM(CASE WHEN week_day='Friday' THEN  quantity ELSE 0 END) AS FRIDAY,
+        SUM(CASE WHEN week_day='Saturday' THEN  quantity ELSE 0 END) AS SATURDAY,
+        SUM(CASE WHEN week_day='Sunday' THEN  quantity ELSE 0 END) AS SUNDAY
+FROM
+(SELECT  i.item_category,
+        DAYNAME(o.order_date) week_day,
+        o.quantity
+FROM    Orders o RIGHT JOIN  Items i ON o.item_id = i.item_id) t1
+GROUP BY    1
+ORDER BY    1
