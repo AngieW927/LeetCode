@@ -85,6 +85,6 @@ IF(period_start>'2017-12-31',period_start,'2018-01-01'))+1)*average_daily_sales 
 FROM sales
 ) t1 RIGHT JOIN Product p 
 ON t1.product_id = p.product_id
-GROUP BY 1,3
+GROUP BY 1,3;
 HAVING total_amount > 0
 ORDER BY 1,3
